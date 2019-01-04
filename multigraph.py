@@ -10,7 +10,7 @@ class MultiGraph:
         self.rels = {}
         self.node_labels = []
         self.rel_labels = []
-        self.sparse_graph = {} #{relation: [row, col, data]}
+        self.sparse_graph = {} #{relation: [row list, col list, data list]}
         self.rel_counter = Counter()
     
     def add_connection(self, connection):
@@ -38,7 +38,7 @@ class MultiGraph:
         self.sparse_graph[self.rels[rel]][2].append(1)
     
     def get_adjacency_matrix(self):
-        #iterleave all the columns from the individual adjacency matrices
+        #interleave all the columns from the individual adjacency matrices
         #it is an out-going adjacency graph
         full_matrix = [[],[],[]]
         for k in range(self.n_rels):
