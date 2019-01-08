@@ -48,13 +48,20 @@ class MultiGraph:
             full_matrix[1].extend(col_shift)
             full_matrix[2].extend(self.sparse_graph[k][2])
         shape = (self.n_nodes,self.n_nodes*self.n_rels)
-        return csr_matrix((full_matrix[2], (full_matrix[0],full_matrix[1])), shape=shape, dtype=np.float32)
+        return csr_matrix((full_matrix[2], (full_matrix[0],full_matrix[1])), shape=shape, dtype=np.int8)
     
     def get_adjacency_matrix_k(self,k):
         #it is an out-going adjacency graph of relation k
         graph_k = self.sparse_graph[self.rels[k]]
         shape = (self.n_nodes,self.n_nodes)
-        return csr_matrix((graph_k[2], (graph_k[0],graph_k[1])), shape=shape, dtype=np.float32)
+        return csr_matrix((graph_k[2], (graph_k[0],graph_k[1])), shape=shape, dtype=np.int8)
+
+    def get_transpose_adjacency_matrix_k(self,k):
+        #it is an out-going adjacency graph of relation k
+        graph_k = self.sparse_graph[self.rels[k]]
+        shape = (self.n_nodes,self.n_nodes)
+        #switch the rows and columns
+        return csr_matrix((graph_k[2], (graph_k[1],graph_k[0])), shape=shape, dtype=np.int8)
     
     def get_node_label(self,index):
         return self.node_labels[index]
